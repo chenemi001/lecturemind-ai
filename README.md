@@ -17,7 +17,7 @@ Designed to showcase modern frontend engineering practices, responsive layouts, 
 
 ## 🌐 Live Demo
 
-> Coming Soon (Vercel Deployment)
+> https://lecturemind-ai.vercel.app/
 
 ---
 
