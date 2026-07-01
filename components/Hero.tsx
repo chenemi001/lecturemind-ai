@@ -1,9 +1,26 @@
 "use client";
-
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import BackgroundGlow from "@/components/ui/BackgroundGlow";
 
 export default function Hero() {
+  const words = [
+  "Smart",
+  "Organized",
+  "Searchable",
+  "Structured",
+  "Interactive",
+];
+
+const [currentWord, setCurrentWord] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentWord((prev) => (prev + 1) % words.length);
+  }, 2000);
+
+  return () => clearInterval(interval);
+}, []);
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50 to-white">
       <BackgroundGlow />
@@ -25,13 +42,31 @@ export default function Hero() {
 
         {/* Heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 35 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          className="max-w-4xl text-5xl font-extrabold leading-tight text-gray-900 md:text-7xl"
-        >
-          Turn Every Lecture Into Smart Notes
-        </motion.h1>
+  initial={{ opacity: 0, y: 35 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.2, duration: 0.7 }}
+  className="max-w-4xl text-5xl font-extrabold leading-tight text-gray-900 md:text-7xl"
+>
+  Turn Every Lecture Into{" "}
+  <span className="relative inline-block min-w-[240px] text-emerald-600">
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={words[currentWord]}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.35 }}
+        className="absolute left-0 top-0"
+      >
+        {words[currentWord]}
+      </motion.span>
+    </AnimatePresence>
+
+    {/* Keeps the layout from shifting */}
+    <span className="invisible">Interactive</span>
+  </span>{" "}
+  Notes
+</motion.h1>
 
         {/* Description */}
         <motion.p
